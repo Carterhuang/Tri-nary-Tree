@@ -1,0 +1,81 @@
+Name: Carter Huang
+Email: hh548@cornell.edu
+
+Trinary: A class that defines a tri-nary tree.
+
+*** How to Run Test Cases ***
+
+Execute:
+    g++ test_trinary.cpp trinary.cpp -o run_tests
+    ./run_tests
+
+*** Decription of Trinary ***
+
+insert:
+The insert method, or insertNode(int v), follows an algorithm
+that is similar to BST. The difference is that now the node has
+a link to a linked list of nodes with the same value.
+
+Run-time for insert is O(lgN) on average and O(N) for the worst 
+case.
+
+delete:
+The delete method, or deleteNode(int v), is more complicated.
+Deleting the value of a leaf node is straightfoward. It locates
+the node to be deleted in a binary-search manner and deletes that
+node. Deleting a non-leaf node requires replacing the value of 
+that node with its predecessor or successor. However, always
+choosing predessor over successor will always lead to an
+un-balanced tree, so is the other way around. Therefore, the
+choosing procedure should be randomized. In this implementation
+the program checks the last bit of the address of the node to be
+deleted. If that bit is set to one, it searches prodecessor first,
+and vice versa.
+ 
+Run-time for delete is O(lgN) on average and O(N) for the worst 
+case.
+
+garbage collection:
+Given this program is implemented in C++, to avoid memory leak
+this function has a destructor (~Trinary). The destructor deletes
+nodes by post-order traversal at the end of lifetime of the tree.
+ 
+*** Testing & Serialzation ***
+
+In the testing phase, in order to avoid losing information on 
+the inside structures, trees are serialized by pre-order traversal.
+
+The serializing function uses '%' as the seperator between node values
+while '#' represents 'NULL' value.
+
+Here are some examples.
+
+"#%" represents an empty tree.
+
+"1%" represents a tree with one node with value of 1.
+
+"2%1%#%#%" represents:
+    
+           2
+         / | \ 
+        1  
+
+while "2%1%2%3%" represents:
+    
+           2
+         / | \ 
+        1  2  3
+
+Finally "4%2%1%2%3%6%5%#%7%" represents:
+    
+           4
+       /       \
+      2         6
+    / | \     / | \
+   1  2  3   5     7
+
+All the test cases are in "test_trinary.cpp".
+
+*** Questions ***
+For further questions concerning the code, please email
+hh548@cornell.edu
